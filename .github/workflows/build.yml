@@ -1,0 +1,55 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Checks and packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PHP lint
+        run: for f in *.php lib/*.php tests/*.php; do php -l "$f"; done
+      - name: Server checks
+        run: php tests/server_policy_test.php
+      - name: Build packages
+        run: python3 scripts/build_packages.py
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: CHIM-Promise-Engine-build
+          path: dist/*
+      - name: Read version
+        id: version
+        run: echo "version=$(python3 -c "import json;print(json.load(open('manifest.json'))['version'])")" >> "$GITHUB_OUTPUT"
+      - name: Create release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: CHIM - Promise Engine ${{ steps.version.outputs.version }}
+          files: dist/*
+          make_latest: true
+          body: |
+            ## Download
+
+            **CHIM Plugin Manager:** install *CHIM - Promise Engine* from the list.
+
+            **Mod Organizer 2 / Vortex:** [CHIM-Promise-Engine-${{ steps.version.outputs.version }}.zip](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/CHIM-Promise-Engine-${{ steps.version.outputs.version }}.zip). CHIM installs the server part on the next game start.
+
+            | File | What it is |
+            |---|---|
+            | `CHIM-Promise-Engine-${{ steps.version.outputs.version }}.zip` / `CHIM-Promise-Engine.zip` | For MO2/Vortex (contains the server package) |
+            | `chim-plugin.tar.gz` | For CHIM's *Plugin Manager* (installs into `ext/chim_promise_engine`) |
+            | `chim_promise_engine-${{ steps.version.outputs.version }}.dwpkg` | Server package only |
+            | `chim_promise_engine.tar.gz` | Server files for older CHIM versions |
+
+            What changed: see [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md). Problems: open an issue with the diagnostic file from the plugin page. Plans: [ROADMAP.md](https://github.com/${{ github.repository }}/blob/main/ROADMAP.md).
