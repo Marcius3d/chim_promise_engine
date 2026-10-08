@@ -21,7 +21,7 @@ and Serana's CHIM profile, and the way she talks to you, changes with them.
 
 ## Design rules
 
-- **Server-only plugin.** No SKSE DLL, no ESP. Installs through the CHIM Plugin Manager or MO2.
+- **Server-only plugin.** No SKSE DLL, no ESP. Installs through the CHIM Plugin Manager. Phase 2 stays server-only too (CHIM profiles live on the server).
 - **Silence is intentional.** Initiatives are rare, never during combat, spread across the party, with cooldowns.
 - **Cheap.** An initiative replaces CHIM's own bored line (~100–230 extra tokens). One small check (~450 tokens) only when the player answers a proposal. Arrival, deaths and saves are database checks, no LLM.
 - **Per playthrough.** Promises belong to the active CHIM playthrough. Switching saves switches the list.

@@ -7,7 +7,6 @@
   "config_url": "/HerikaServer/ext/chim_promise_engine/index.php",
   "config_url_target": "_blank",
   "git_repo": "Marcius3d/chim_promise_engine",
-  "mod_download_url": "https://github.com/Marcius3d/chim_promise_engine/releases/latest/download/CHIM-Promise-Engine.zip",
   "default_channel": "main",
   "channels": {
     "main": {

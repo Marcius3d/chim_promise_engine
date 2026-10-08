@@ -5,7 +5,6 @@ Outputs (in dist/):
   chim_promise_engine-<version>.dwpkg   server package (schema 4) that CHIM installs automatically
   chim_promise_engine.tar.gz   server archive for the Server Plugins "Update" button (legacy manifest channel)
   chim-plugin.tar.gz          server files at the archive root, for CHIM Plugin Manager (GitHub topic chim-plugin)
-  CHIM-Promise-Engine-<version>.zip  MO2/Vortex archive (embedded .dwpkg, CHIM installs it on game start)
 
 Usage:
   python scripts/build_packages.py [--check-only]
@@ -25,7 +24,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 PLUGIN_NAME = "chim_promise_engine"
-MOD_NAME = "CHIM-Promise-Engine"
 
 # Files that make up the server extension (installed into HerikaServer/ext/chim_promise_engine/).
 SERVER_FILES = ["manifest.json", "README.md", "ROADMAP.md", "AGENTS.md", "LICENSE", "CHANGELOG.md", "index.php", "preprocessing.php", "postrequest.php"]
@@ -116,9 +114,6 @@ def main() -> int:
     (DIST / f"{PLUGIN_NAME}-{version}.dwpkg").write_bytes(dwpkg)
     (DIST / f"{PLUGIN_NAME}.tar.gz").write_bytes(build_server_tar())
     (DIST / "chim-plugin.tar.gz").write_bytes(build_server_tar(prefix=""))  # CHIM Plugin Manager: files at the root
-    archive = zip_bytes([(f"CHIM/server-plugins/{PLUGIN_NAME}/{version}.dwpkg", dwpkg)])
-    for name in (f"{MOD_NAME}-{version}.zip", f"{MOD_NAME}.zip"):  # versioned + stable "latest" name
-        (DIST / name).write_bytes(archive)
     for path in sorted(DIST.iterdir()):
         print(f"  dist/{path.name}")
     return 0

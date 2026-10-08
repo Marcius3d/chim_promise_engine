@@ -29,8 +29,7 @@ A server plugin for [CHIM](https://github.com/Dwemer-Dynamics) (HerikaServer). N
 
 ## Install
 
-- **CHIM Plugin Manager:** find *CHIM - Promise Engine* in the list and install it.
-- **Mod Organizer 2 / Vortex:** install `CHIM-Promise-Engine.zip` from the [latest release](https://github.com/Marcius3d/chim_promise_engine/releases/latest). CHIM installs the server part on the next game start.
+In CHIM's web UI open the *Plugin Manager*, find *CHIM - Promise Engine* and install it. Nothing to install in Skyrim or Mod Organizer: it is a server plugin only.
 
 Then open CHIM's web UI → *Server Plugins* → *CHIM - Promise Engine* → *Plugin Page* to see promises and change settings.
 

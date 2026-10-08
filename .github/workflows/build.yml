@@ -41,13 +41,10 @@ jobs:
           body: |
             ## Download
 
-            **CHIM Plugin Manager:** install *CHIM - Promise Engine* from the list.
-
-            **Mod Organizer 2 / Vortex:** [CHIM-Promise-Engine-${{ steps.version.outputs.version }}.zip](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/CHIM-Promise-Engine-${{ steps.version.outputs.version }}.zip). CHIM installs the server part on the next game start.
+            Install it from CHIM's *Plugin Manager* (find *CHIM - Promise Engine* in the list). Server plugin only: nothing to install in Skyrim or Mod Organizer.
 
             | File | What it is |
             |---|---|
-            | `CHIM-Promise-Engine-${{ steps.version.outputs.version }}.zip` / `CHIM-Promise-Engine.zip` | For MO2/Vortex (contains the server package) |
             | `chim-plugin.tar.gz` | For CHIM's *Plugin Manager* (installs into `ext/chim_promise_engine`) |
             | `chim_promise_engine-${{ steps.version.outputs.version }}.dwpkg` | Server package only |
             | `chim_promise_engine.tar.gz` | Server files for older CHIM versions |
